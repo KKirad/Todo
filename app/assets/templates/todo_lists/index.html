@@ -1,0 +1,51 @@
+<div ng-controller="TodoListCtrl">
+  <div class="page-header">
+    <button type="button" class="btn btn-primary pull-right" ng-click="addTodoList()">Add</button>
+    <h1><small>TodoList</small></h1>
+  </div>
+  <div class="row">
+    <div class="col-xs-offset-2 col-md-offset-2 col-xs-8 col-md-8">
+      <div class="form-group pull-right">
+        <input type="text" class="form-control" ng-model="title" placeholder="Search" ng-change="searchTodoList()" ng-if="todo_lists.length > 0">
+      </div>
+    </div>
+  </div>
+  <div class="row">
+  	<div class="col-xs-offset-2 col-md-offset-2 col-xs-8 col-md-8">
+      <uib-accordion dir-paginate="todo_list in todo_lists | itemsPerPage: pageSize" current-page="currentPage" total-items="totalItems">
+        <div uib-accordion-group class="panel-default">
+          <uib-accordion-heading>
+            {{todo_list.title}}
+            <div class="pull-right">
+              <a href="javascript:void(0)" ng-click="editTodoList(todo_list)">Edit</a> |
+              <a href="javascript:void(0)" ng-click="destroyTodoList(todo_list)" ng-confirm-click="Are you sure, Do you want to destroy todo list {{todo_list.title}}?">Destroy</a> |
+              <a href="javascript:void(0)" ng-click="deleteTodoList(todo_list)" ng-confirm-click="Are you sure, Do you want to delete todo list {{todo_list.title}}?">Delete</a>  
+            </div>
+          </uib-accordion-heading>
+          <ul class="list-group">
+            <li class="list-group-item" ng-repeat="item in todo_list.todo_items">
+              {{item.content}}
+              <div class="pull-right">
+                <a href="javascript:void(0)" ng-click="editTodoItem(todo_list, item)">Edit</a> |
+                <a href="javascript:void(0)" ng-click="destroyTodoItem(todo_list, item)" ng-confirm-click="Are you sure, Do you want to destroy todo item {{item.content}} of todo list {{todo_list.title}}?">Destroy</a> |
+                <a href="javascript:void(0)" ng-click="deleteTodoItem(todo_list, item)" ng-confirm-click="Are you sure, Do you want to delete todo item {{item.content}} of todo list {{todo_list.title}}?">Delete</a>
+              </div>
+            </li>
+          </ul>
+          <button type="button" class="btn btn-default btn-sm" ng-click="addTodoItem(todo_list)">Add Item</button>
+        </div>
+      </uib-accordion>
+  	</div>
+  </div>
+  <div class="row">
+    <div class="col-xs-offset-2 col-md-offset-2 col-xs-8 col-md-8"> 
+      <div class="head_22">
+        <div class="border">
+          <nav>
+            <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="dirPagination.tpl.html"></dir-pagination-controls>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
