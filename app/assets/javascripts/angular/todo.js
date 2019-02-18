@@ -20,7 +20,8 @@ app.controller('TodoListCtrl', ['$scope', '$state', 'Flash', 'Spin', 'TodoList',
       getTodoLists();
     };
 
-    $scope.searchTodoList = function(){
+    $scope.searchTodoList = function(title){
+      $scope.title = title;
       getTodoLists();
     };
 
